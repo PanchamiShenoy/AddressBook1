@@ -8,12 +8,13 @@ public class AddressBookMain {
 	static List<Contact> list = new ArrayList<>();
 
 	public static void main(String[] args) {
-		final int EXIT = 4;
+		final int EXIT = 5;
 
 		int choice = 0;
 		while (choice != EXIT) {
 
-			System.out.println("1 : Add Contact\n2 : Edit Contact\n3 : Display Contact\n" + EXIT + " to exit");
+			System.out.println(
+					"1 : Add Contact\n2 : Edit Contact\n3 : Display Contact\n4 :Delete Contact" + EXIT + " to exit");
 			Scanner r = new Scanner(System.in);
 			Scanner sc = new Scanner(System.in);
 			choice = r.nextInt();
@@ -25,10 +26,19 @@ public class AddressBookMain {
 			case 2:
 				System.out.println("enter the first name");
 				String fname = sc.nextLine();
-				editPerson(fname);
+				System.out.println("enter the last name");
+				String lastName = sc.nextLine();
+				editPerson(fname, lastName);
 				break;
 			case 3:
 				displayContact();
+				break;
+			case 4:
+				System.out.println("enter the first name");
+				String firstName = sc.nextLine();
+				System.out.println("enter the last name");
+				lastName = sc.nextLine();
+				deleteperson(firstName, lastName);
 				break;
 
 			}
@@ -36,6 +46,17 @@ public class AddressBookMain {
 		}
 
 	}
+
+	private static void deleteperson(String fname, String lname) {
+		// TODO Auto-generated method stub
+		Contact person = getPerson(fname, lname);
+		if (person == null) {
+			System.out.println("No contact found of that name");
+		} else {
+			list.remove(person);
+		}
+	}
+
 	private static void addContact() {
 
 		Scanner sc = new Scanner(System.in);
@@ -68,10 +89,10 @@ public class AddressBookMain {
 
 	}
 
-	private static Contact getPerson(String fname) {
-		for (Contact item : list) {
-			if (item.firstName.equals(fname)) {
-				return item;
+	private static Contact getPerson(String fname, String lname) {
+		for (Contact contact : list) {
+			if (contact.firstName.equals(fname) && contact.firstName.equals(fname)) {
+				return contact;
 			}
 
 		}
@@ -79,9 +100,9 @@ public class AddressBookMain {
 
 	}
 
-	private static void editPerson(String fname) {
+	private static void editPerson(String fname, String lname) {
 
-		Contact person = getPerson(fname);
+		Contact person = getPerson(fname, lname);
 		if (person == null) {
 			System.out.println("No contact found of that name");
 		} else {
@@ -144,5 +165,4 @@ public class AddressBookMain {
 
 	}
 
-	
 }
