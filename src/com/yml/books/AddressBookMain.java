@@ -47,6 +47,12 @@ public class AddressBookMain {
 
 	}
 
+	/**
+	 * method to delete the contact
+	 * 
+	 * @param fname first name of the person
+	 * @param lname last name of the person
+	 */
 	private static void deleteperson(String fname, String lname) {
 		// TODO Auto-generated method stub
 		Contact person = getPerson(fname, lname);
@@ -57,6 +63,9 @@ public class AddressBookMain {
 		}
 	}
 
+	/**
+	 * method to add new contact to addressBook
+	 */
 	private static void addContact() {
 
 		Scanner sc = new Scanner(System.in);
@@ -82,6 +91,9 @@ public class AddressBookMain {
 
 	}
 
+	/**
+	 * method to display contact
+	 */
 	private static void displayContact() {
 		for (int i = 0; i < list.size(); i++) {
 			System.out.println(list.get(i));
@@ -89,6 +101,13 @@ public class AddressBookMain {
 
 	}
 
+	/**
+	 * method to get the contact who's firstname and lastname is fname and lname
+	 * 
+	 * @param fname first name of the person
+	 * @param lname last name of the person
+	 * @return contact of the matching person
+	 */
 	private static Contact getPerson(String fname, String lname) {
 		for (Contact contact : list) {
 			if (contact.firstName.equals(fname) && contact.firstName.equals(fname)) {
@@ -100,6 +119,12 @@ public class AddressBookMain {
 
 	}
 
+	/**
+	 * method to edit the existing contact
+	 * 
+	 * @param fname first name of the person
+	 * @param lname last name of the person
+	 */
 	private static void editPerson(String fname, String lname) {
 
 		Contact person = getPerson(fname, lname);
