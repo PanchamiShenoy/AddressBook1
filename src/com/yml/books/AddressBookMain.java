@@ -43,9 +43,10 @@ public class AddressBookMain {
 		}
 
 	}
-/*
- * method to delete contact
- */
+
+	/*
+	 * method to delete contact
+	 */
 	private static void deleteContact() {
 		System.out.println("Enter the name of address book to delete contact");
 
@@ -58,9 +59,10 @@ public class AddressBookMain {
 		}
 
 	}
-/*
- * method to edit contact
- */
+
+	/*
+	 * method to edit contact
+	 */
 	private static void editContact() {
 		System.out.println("Enter the name of address book to  edit");
 
@@ -73,9 +75,10 @@ public class AddressBookMain {
 		}
 
 	}
-/*
- * method to add new addressBook
- */
+
+	/*
+	 * method to add new addressBook
+	 */
 	private static void addAddressBook() {
 		System.out.println("Enter the name of new address book");
 
@@ -91,24 +94,26 @@ public class AddressBookMain {
 		}
 
 	}
-/*
- * method to display contacts of addressBook
- */
+
+	/*
+	 * method to display contacts of addressBook
+	 */
 	private static void displayContact() {
 		System.out.println("Enter the name of address book to display");
 		String bookName = sc.nextLine();
 		AddressBook adBook = addressBook.get(bookName);
 
-		if (adBook!= null) {
+		if (adBook != null) {
 			adBook.print();
 		} else {
 			System.out.println("Book name not found");
 		}
 
 	}
-/*
- * method to add a new contact to addressBook
- */
+
+	/*
+	 * method to add a new contact to addressBook
+	 */
 	private static void addContact() {
 
 		System.out.println("Enter the name of Address book to add the contact");

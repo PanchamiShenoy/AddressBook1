@@ -2,7 +2,12 @@ package com.yml.books;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public class AddressBook {
 	String addressBookName;
@@ -11,10 +16,12 @@ public class AddressBook {
 	AddressBook(String addressBookName) {
 		this.addressBookName = addressBookName;
 	}
+
 	static Map<String, Contact> addressBook = new HashMap<>();
-/*
- * method to add contact to adressBook
- */
+
+	/*
+	 * method to add contact to adressBook
+	 */
 	public static void addContact() {
 
 		System.out.println("enter the first name");
@@ -37,16 +44,26 @@ public class AddressBook {
 		Contact contact = new Contact(fname, lname, address, city, state, zip, phone, email);
 		String name = fname + " " + lname;
 		Contact c = addressBook.get(name);
-		if (c != null) {
-			System.out.println("There is already a person with this name ");
-		} else {
+		Set<String> keyset = addressBook.keySet();
+		Supplier<Stream<String>> streamSupplier = () -> keyset.stream();
+		Optional<String> result1 = streamSupplier.get().findAny();
+		if (result1.isEmpty()) {
+			System.out.println("Adding details");
 			addressBook.put(fname + " " + lname, contact);
+		} else {
+			if (streamSupplier.get().anyMatch(x -> x.equals(name))) {
+				System.out.println("There is already a person with this name ");
+			} else {
+				System.out.println("Adding details");
+				addressBook.put(fname + " " + lname, contact);
+			}
 		}
 
 	}
-/*
- * method to edit contact in addressBook
- */
+
+	/*
+	 * method to edit contact in addressBook
+	 */
 	public static void editPerson() {
 
 		System.out.println("enter the first name");
@@ -118,9 +135,27 @@ public class AddressBook {
 		}
 
 	}
-/*
- * method to delete person from addressBook
- */
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(addressBookName);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AddressBook other = (AddressBook) obj;
+		return Objects.equals(addressBookName, other.addressBookName);
+	}
+
+	/*
+	 * method to delete person from addressBook
+	 */
 	public static void deleteperson() {
 
 		System.out.println("enter the first name");
@@ -139,9 +174,10 @@ public class AddressBook {
 		}
 
 	}
-/*
- * method to print addressBook
- */
+
+	/*
+	 * method to print addressBook
+	 */
 	public void print() {
 
 		for (Contact c : addressBook.values()) {
