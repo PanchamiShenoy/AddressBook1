@@ -186,7 +186,7 @@ public class AddressBook {
 
 			System.out.println(entry.getValue());
 		}
-		System.out.println("-------------------------------------------------------------");
+
 	}
 
 	@Override
@@ -226,6 +226,56 @@ public class AddressBook {
 			addressBook.remove(name);
 		}
 
+	}
+
+	/*
+	 * Method to sort contacts based on state
+	 */
+	public void sortZip() {
+		Set<Map.Entry<String, Contact>> entries = addressBook.entrySet();
+		Stream<Map.Entry<String, Contact>> entriesStream = entries.stream();
+
+		Set<String> keySet = addressBook.keySet();
+		Collection<Contact> values = addressBook.values();
+
+		Stream<Contact> valuesStream = values.stream();
+		Stream<String> keysStream = keySet.stream();
+
+		valuesStream.sorted((p1, p2) -> p1.zip.compareTo(p2.zip)).forEach(System.out::println);
+
+	}
+
+	/**
+	 * Method to sort contacts based on state
+	 */
+	public void sortCity() {
+		Set<Map.Entry<String, Contact>> entries = addressBook.entrySet();
+		Stream<Map.Entry<String, Contact>> entriesStream = entries.stream();
+
+		Set<String> keySet = addressBook.keySet();
+		Collection<Contact> values = addressBook.values();
+
+		Stream<Contact> valuesStream = values.stream();
+		Stream<String> keysStream = keySet.stream();
+
+		valuesStream.sorted((p1, p2) -> p1.city.compareTo(p2.city)).forEach(System.out::println);
+
+	}
+
+	/**
+	 * Method to sort contacts based on state
+	 */
+	public void sortState() {
+		Set<Map.Entry<String, Contact>> entries = addressBook.entrySet();
+		Stream<Map.Entry<String, Contact>> entriesStream = entries.stream();
+
+		Set<String> keySet = addressBook.keySet();
+		Collection<Contact> values = addressBook.values();
+
+		Stream<Contact> valuesStream = values.stream();
+		Stream<String> keysStream = keySet.stream();
+
+		valuesStream.sorted((p1, p2) -> p1.state.compareTo(p2.state)).forEach(System.out::println);
 	}
 
 	/*
