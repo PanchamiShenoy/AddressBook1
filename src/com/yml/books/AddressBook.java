@@ -1,7 +1,9 @@
 package com.yml.books;
 
+import java.util.stream.Collectors;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -91,7 +93,7 @@ public class AddressBook {
 
 		for (Map.Entry<String, Contact> entry : cityMap.entrySet())
 			System.out.println(entry.getValue());
-		
+
 		return statesMap.size() + cityMap.size();
 
 	}
@@ -169,6 +171,22 @@ public class AddressBook {
 
 		}
 
+	}
+
+	/*
+	 * method to sort contact based on names
+	 */
+	public void sort() {
+
+		Map<String, Contact> sortedContact = addressBook.entrySet().stream().sorted(Map.Entry.comparingByKey())
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue,
+						LinkedHashMap::new));
+
+		for (Map.Entry<String, Contact> entry : sortedContact.entrySet()) {
+
+			System.out.println(entry.getValue());
+		}
+		System.out.println("-------------------------------------------------------------");
 	}
 
 	@Override

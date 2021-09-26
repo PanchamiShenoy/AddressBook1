@@ -9,7 +9,7 @@ public class AddressBookMain {
 	static Scanner sc = new Scanner(System.in);
 
 	public static void main(String[] args) {
-		final int EXIT = 7;
+		final int EXIT = 8;
 
 		int choice = 0;
 		while (choice != EXIT) {
@@ -40,6 +40,9 @@ public class AddressBookMain {
 			case 6:
 				searchContact();
 				break;
+			case 7:
+				sort();
+				break;
 
 			}
 
@@ -48,18 +51,28 @@ public class AddressBookMain {
 	}
 
 	/*
+	 * method to sort contact based on names
+	 */
+	private static void sort() {
+		for (Map.Entry<String, AddressBook> entry : addressBook.entrySet()) {
+			AddressBook obj = entry.getValue();
+			obj.sort();
+		}
+	}
+
+	/*
 	 * method to search contact based on city or state
 	 */
-	
-		private static void searchContact() {
-			System.out.println("Enter the city or state name");
-			String place = sc.nextLine();
-			int count=0;
-			for (Map.Entry<String, AddressBook> entry : addressBook.entrySet()) {
-				AddressBook obj = entry.getValue();
-				count+=obj.searchContact(place);
-			}
-			System.out.println(count+" contact found based on"+place);
+
+	private static void searchContact() {
+		System.out.println("Enter the city or state name");
+		String place = sc.nextLine();
+		int count = 0;
+		for (Map.Entry<String, AddressBook> entry : addressBook.entrySet()) {
+			AddressBook obj = entry.getValue();
+			count += obj.searchContact(place);
+		}
+		System.out.println(count + " contact found based on" + place);
 	}
 
 	/*
