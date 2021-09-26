@@ -65,7 +65,7 @@ public class AddressBook {
 	/*
 	 * method to search contact based on city or state
 	 */
-	public void searchContact(String place) {
+	public int searchContact(String place) {
 		Map<String, Contact> statesMap = new HashMap<>();
 		Map<String, Contact> cityMap = new HashMap<>();
 
@@ -91,6 +91,8 @@ public class AddressBook {
 
 		for (Map.Entry<String, Contact> entry : cityMap.entrySet())
 			System.out.println(entry.getValue());
+		
+		return statesMap.size() + cityMap.size();
 
 	}
 
