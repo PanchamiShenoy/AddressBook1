@@ -54,11 +54,12 @@ public class AddressBookMain {
 		private static void searchContact() {
 			System.out.println("Enter the city or state name");
 			String place = sc.nextLine();
+			int count=0;
 			for (Map.Entry<String, AddressBook> entry : addressBook.entrySet()) {
 				AddressBook obj = entry.getValue();
-				obj.searchContact(place);
+				count+=obj.searchContact(place);
 			}
-
+			System.out.println(count+" contact found based on"+place);
 	}
 
 	/*
