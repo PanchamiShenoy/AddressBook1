@@ -50,13 +50,14 @@ public class AddressBookMain {
 	/*
 	 * method to search contact based on city or state
 	 */
-	private static void searchContact() {
-		System.out.println("Enter the city or state name");
-		String place = sc.nextLine();
-		for (Map.Entry<String, AddressBook> entry : addressBook.entrySet()) {
-			AddressBook obj = entry.getValue();
-			obj.searchContact(place);
-		}
+	
+		private static void searchContact() {
+			System.out.println("Enter the city or state name");
+			String place = sc.nextLine();
+			for (Map.Entry<String, AddressBook> entry : addressBook.entrySet()) {
+				AddressBook obj = entry.getValue();
+				obj.searchContact(place);
+			}
 
 	}
 

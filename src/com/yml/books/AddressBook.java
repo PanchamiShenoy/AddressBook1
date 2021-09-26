@@ -18,12 +18,12 @@ public class AddressBook {
 		this.addressBookName = addressBookName;
 	}
 
-	static Map<String, Contact> addressBook = new HashMap<>();
+	Map<String, Contact> addressBook = new HashMap<>();
 
 	/*
 	 * method to add contact to adressBook
 	 */
-	public static void addContact() {
+	public void addContact() {
 
 		System.out.println("enter the first name");
 		String fname = sc.nextLine();
@@ -63,9 +63,12 @@ public class AddressBook {
 	}
 
 	/*
-	 * method to search contact based city or state
+	 * method to search contact based on city or state
 	 */
 	public void searchContact(String place) {
+		Map<String, Contact> statesMap = new HashMap<>();
+		Map<String, Contact> cityMap = new HashMap<>();
+
 		Set<Map.Entry<String, Contact>> entries = addressBook.entrySet();
 		Stream<Map.Entry<String, Contact>> entriesStream = entries.stream();
 
@@ -75,21 +78,26 @@ public class AddressBook {
 		Stream<Contact> valuesStream = values.stream();
 		Stream<String> keysStream = keySet.stream();
 
-		valuesStream.anyMatch((x) -> {
-			if (x.city.equals(place) || x.state.equals(place)) {
-				System.out.println(x);
-				return true;
-			} else {
-				return false;
+		valuesStream.forEach((x) -> {
+			if (x.state.equals(place)) {
+				statesMap.put(x.state, x);
+			} else if (x.city.equals(place)) {
+				cityMap.put(x.city, x);
 			}
 		});
+
+		for (Map.Entry<String, Contact> entry : statesMap.entrySet())
+			System.out.println(entry.getValue());
+
+		for (Map.Entry<String, Contact> entry : cityMap.entrySet())
+			System.out.println(entry.getValue());
 
 	}
 
 	/*
 	 * method to edit contact in addressBook
 	 */
-	public static void editPerson() {
+	public void editPerson() {
 
 		System.out.println("enter the first name");
 		String fname = sc.nextLine();
@@ -181,7 +189,7 @@ public class AddressBook {
 	/*
 	 * method to delete person from addressBook
 	 */
-	public static void deleteperson() {
+	public void deleteperson() {
 
 		System.out.println("enter the first name");
 		String fname = sc.nextLine();
@@ -205,9 +213,8 @@ public class AddressBook {
 	 */
 	public void print() {
 
-		for (Contact c : addressBook.values()) {
-			System.out.println(c);
-		}
+		for (Map.Entry<String, Contact> entry : addressBook.entrySet())
+			System.out.println(entry.getValue());
 
 	}
 
