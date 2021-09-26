@@ -62,30 +62,37 @@ public class AddressBook {
 
 	}
 
-	/*
-	 * method to search contact based city or state
-	 */
 	public void searchContact(String place) {
-		Set<Map.Entry<String, Contact>> entries = addressBook.entrySet();
-		Stream<Map.Entry<String, Contact>> entriesStream = entries.stream();
+	Map<String, Contact> statesMap = new HashMap<>();
+	Map<String, Contact> cityMap = new HashMap<>();
 
-		Set<String> keySet = addressBook.keySet();
-		Collection<Contact> values = addressBook.values();
+	Set<Map.Entry<String, Contact>> entries = addressBook.entrySet();
+	Stream<Map.Entry<String, Contact>> entriesStream = entries.stream();
 
-		Stream<Contact> valuesStream = values.stream();
-		Stream<String> keysStream = keySet.stream();
+	Set<String> keySet = addressBook.keySet();
+	Collection<Contact> values = addressBook.values();
 
-		valuesStream.anyMatch((x) -> {
-			if (x.city.equals(place) || x.state.equals(place)) {
-				System.out.println(x);
-				return true;
-			} else {
-				return false;
-			}
-		});
+	Stream<Contact> valuesStream = values.stream();
+	Stream<String> keysStream = keySet.stream();
 
-	}
+	valuesStream.anyMatch((x) -> {
+		if (x.state.equals(place)) {
+			statesMap.put(x.state, x);
+			return true;
+		} else if (x.city.equals(place)) {
+			cityMap.put(x.city, x);
+			return true;
+		}
+		return false;
+	});
 
+	for (Map.Entry<String, Contact> entry : statesMap.entrySet())
+		System.out.println(entry.getValue());
+
+	for (Map.Entry<String, Contact> entry : cityMap.entrySet())
+		System.out.println(entry.getValue());
+
+}
 	/*
 	 * method to edit contact in addressBook
 	 */
@@ -205,9 +212,8 @@ public class AddressBook {
 	 */
 	public void print() {
 
-		for (Contact c : addressBook.values()) {
-			System.out.println(c);
-		}
+		for (Map.Entry<String, Contact> entry : addressBook.entrySet())
+			System.out.println(entry.getValue());
 
 	}
 
