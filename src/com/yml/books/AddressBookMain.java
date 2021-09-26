@@ -9,12 +9,12 @@ public class AddressBookMain {
 	static Scanner sc = new Scanner(System.in);
 
 	public static void main(String[] args) {
-		final int EXIT = 8;
+		final int EXIT = 9;
 
 		int choice = 0;
 		while (choice != EXIT) {
 			System.out.println(
-					"1 : Add AddressBook\n2 : Add Contact\n3 : Edit Contact\n4 : Delete Contact\n5 : Display Contact\n6 :search"
+					"1 : Add AddressBook\n2 : Add Contact\n3 : Edit Contact\n4 : Delete Contact\n5 : Display Contact\n6 :search\n7 :sort by name\n8 :sort by place"
 							+ EXIT + " : to exit");
 			Scanner sc = new Scanner(System.in);
 			choice = sc.nextInt();
@@ -43,11 +43,43 @@ public class AddressBookMain {
 			case 7:
 				sort();
 				break;
+			case 8:
+				sortByPlace();
+				break;
 
 			}
 
 		}
 
+	}
+
+	/*
+	 * method to sort contacts based on city,pin,state
+	 */
+	private static void sortByPlace() {
+		System.out.println(" sort by\n1: Zip code\n2: City \n3: State ");
+		Scanner m = new Scanner(System.in);
+		int ch = m.nextInt();
+		switch (ch) {
+		case 1:
+			for (Map.Entry<String, AddressBook> entry : addressBook.entrySet()) {
+				AddressBook obj = entry.getValue();
+				obj.sortZip();
+			}
+			break;
+		case 2:
+			for (Map.Entry<String, AddressBook> entry : addressBook.entrySet()) {
+				AddressBook obj = entry.getValue();
+				obj.sortCity();
+			}
+			break;
+		case 3:
+			for (Map.Entry<String, AddressBook> entry : addressBook.entrySet()) {
+				AddressBook obj = entry.getValue();
+				obj.sortState();
+			}
+			break;
+		}
 	}
 
 	/*
