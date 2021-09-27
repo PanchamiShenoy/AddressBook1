@@ -291,6 +291,7 @@ public class AddressBook {
 			System.out.println(entry.getValue());
 
 	}
+
 	/**
 	 * Adds the contacts stored in a file to contacts
 	 */
@@ -324,11 +325,9 @@ public class AddressBook {
 		try {
 
 			BufferedWriter f_writer = new BufferedWriter(new FileWriter(fileName, false));
-			//String str = "hello";
 			for (Contact c : addressBook.values()) {
 				f_writer.write(String.join(",", c.firstName, c.lastName, c.address, c.city, c.state, c.zip,
 						c.phoneNumber, c.eMail));
-				// f_writer.write(str);
 				f_writer.write("\n");
 			}
 			f_writer.close();
