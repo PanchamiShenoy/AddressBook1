@@ -1,6 +1,11 @@
 package com.yml.books;
 
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 import java.util.Scanner;
 
@@ -9,13 +14,12 @@ public class AddressBookMain {
 	static Scanner sc = new Scanner(System.in);
 
 	public static void main(String[] args) {
-		final int EXIT = 9;
+		final int EXIT = 11;
 
 		int choice = 0;
 		while (choice != EXIT) {
 			System.out.println(
-					"1 : Add AddressBook\n2 : Add Contact\n3 : Edit Contact\n4 : Delete Contact\n5 : Display Contact\n6 :search\n7 :sort by name\n8 :sort by place"
-							+ EXIT + " : to exit");
+					"1 : Add AddressBook\n2 : Add Contact\n3 : Edit Contact\n4 : Delete Contact\n5 : Display Contact\n6 :search\n7 :sort by name\n8 :sort by place\n9 :Write addressBook to file\n10 :Read addressBook from file "+ EXIT + " : to exit");
 			Scanner sc = new Scanner(System.in);
 			choice = sc.nextInt();
 
@@ -46,12 +50,65 @@ public class AddressBookMain {
 			case 8:
 				sortByPlace();
 				break;
+			case 9:
+				write();
+				break;
+			case 10:
+				read();
 
 			}
 
 		}
 
 	}
+	/**
+	 * Writes addressbook to the file
+	 */
+	private static void write() {
+		String basePath = "/Users/panchamishenoy/Desktop/assignment/AddressBook1/Data";
+		Scanner m = new Scanner(System.in);
+		System.out.println("Enter the address book you wanna write");
+		String fileName = m.next();
+		AddressBook Book = addressBook.get(fileName);
+		if (Book == null) {
+			System.out.println("No book found");
+			return;
+
+		}
+		addressBook.get(fileName).writeContact(basePath + "/" + fileName);
+
+	}
+
+	/**
+	 * Reads the addressbook from the file .
+	 */
+	private static void read() {
+		String basePath = "/Users/panchamishenoy/Desktop/assignment/AddressBook1/Data";
+		Scanner m = new Scanner(System.in);
+		System.out.println("Enter the address book you wanna read");
+		String filename = m.next();
+		File file = new File(basePath + "/" + filename);
+		if (!file.exists()) {
+			System.out.println("Address book not found");
+			return;
+		}
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(file));
+
+			AddressBook adBook = new AddressBook(filename);
+			addressBook.put(filename, adBook);
+			adBook.addContactFromFile(br);
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
 
 	/*
 	 * method to sort contacts based on city,pin,state
@@ -189,4 +246,6 @@ public class AddressBookMain {
 			addressBook.get(adBook).addContact();
 		}
 	}
+	
+
 }
