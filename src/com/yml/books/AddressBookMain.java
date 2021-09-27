@@ -14,12 +14,13 @@ public class AddressBookMain {
 	static Scanner sc = new Scanner(System.in);
 
 	public static void main(String[] args) {
-		final int EXIT = 11;
+		final int EXIT = 13;
 
 		int choice = 0;
 		while (choice != EXIT) {
 			System.out.println(
-					"1 : Add AddressBook\n2 : Add Contact\n3 : Edit Contact\n4 : Delete Contact\n5 : Display Contact\n6 :search\n7 :sort by name\n8 :sort by place\n9 :Write addressBook to file\n10 :Read addressBook from file "
+					"1 : Add AddressBook\n2 : Add Contact\n3 : Edit Contact\n4 : Delete Contact\n5 : Display Contact\n6 :search\n7 :sort by name\n8 :sort by place\n"
+							+ "9 :Write addressBook to file\n10 :Read addressBook from file\n11 :Write to csv\n11 :Read from scv"
 							+ EXIT + " : to exit");
 			Scanner sc = new Scanner(System.in);
 			choice = sc.nextInt();
@@ -56,11 +57,52 @@ public class AddressBookMain {
 				break;
 			case 10:
 				read();
+				break;
+			case 11:
+				writeToCsv();
+				break;
+			case 12:
+				readFromCsv();
 
 			}
 
 		}
 
+	}
+
+	/**
+	 * Writes the addressbook to csv file
+	 */
+	private static void writeToCsv() {
+		String basePath = "/Users/panchamishenoy/Desktop/assignment/AddressBook1/Data";
+		Scanner m = new Scanner(System.in);
+		System.out.println("Enter the address book you wanna write");
+		String fileName = m.next();
+		AddressBook Book = addressBook.get(fileName);
+		if (Book == null) {
+			System.out.println("No book found");
+			return;
+
+		}
+		addressBook.get(fileName).writeContactCsv(basePath + "/" + fileName + ".csv");
+	}
+
+	/**
+	 * Reads the addressbook from csv file
+	 */
+	private static void readFromCsv() {
+		String basePath = "/Users/panchamishenoy/Desktop/assignment/AddressBook1/Data";
+		Scanner m = new Scanner(System.in);
+		System.out.println("Enter the address book you wanna read");
+		String filename = m.next();
+		File file = new File(basePath + "/" + filename + ".csv");
+		if (!file.exists()) {
+			System.out.println("Address book not found");
+			return;
+		}
+		AddressBook adBook = new AddressBook(filename);
+		addressBook.put(filename, adBook);
+		adBook.addContactCsv(basePath + "/" + filename + ".csv");
 	}
 
 	/**
