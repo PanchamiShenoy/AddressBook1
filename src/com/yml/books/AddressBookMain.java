@@ -19,7 +19,8 @@ public class AddressBookMain {
 		int choice = 0;
 		while (choice != EXIT) {
 			System.out.println(
-					"1 : Add AddressBook\n2 : Add Contact\n3 : Edit Contact\n4 : Delete Contact\n5 : Display Contact\n6 :search\n7 :sort by name\n8 :sort by place\n9 :Write addressBook to file\n10 :Read addressBook from file "+ EXIT + " : to exit");
+					"1 : Add AddressBook\n2 : Add Contact\n3 : Edit Contact\n4 : Delete Contact\n5 : Display Contact\n6 :search\n7 :sort by name\n8 :sort by place\n9 :Write addressBook to file\n10 :Read addressBook from file "
+							+ EXIT + " : to exit");
 			Scanner sc = new Scanner(System.in);
 			choice = sc.nextInt();
 
@@ -61,6 +62,7 @@ public class AddressBookMain {
 		}
 
 	}
+
 	/**
 	 * Writes addressbook to the file
 	 */
@@ -108,7 +110,6 @@ public class AddressBookMain {
 		}
 
 	}
-
 
 	/*
 	 * method to sort contacts based on city,pin,state
@@ -246,6 +247,5 @@ public class AddressBookMain {
 			addressBook.get(adBook).addContact();
 		}
 	}
-	
 
 }
