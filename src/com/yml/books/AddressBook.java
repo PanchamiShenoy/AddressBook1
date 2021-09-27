@@ -1,6 +1,10 @@
 package com.yml.books;
 
 import java.util.stream.Collectors;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -287,5 +291,51 @@ public class AddressBook {
 			System.out.println(entry.getValue());
 
 	}
+	/**
+	 * Adds the contacts stored in a file to contacts
+	 */
+	public void addContactFromFile(BufferedReader br) {
+		Contact contact;
+		String row;
 
+		try {
+			while ((row = br.readLine()) != null) {
+				String[] data = row.split(",");
+				contact = new Contact(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7]);
+				String name = data[0] + " " + data[1];
+				Contact c = addressBook.get(name);
+
+				if (c == null) {
+					addressBook.put(name, contact);
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * writes the contacts in addressbook to file
+	 */
+	public void writeContact(String fileName) {
+
+		try {
+
+			BufferedWriter f_writer = new BufferedWriter(new FileWriter(fileName, false));
+			//String str = "hello";
+			for (Contact c : addressBook.values()) {
+				f_writer.write(String.join(",", c.firstName, c.lastName, c.address, c.city, c.state, c.zip,
+						c.phoneNumber, c.eMail));
+				// f_writer.write(str);
+				f_writer.write("\n");
+			}
+			f_writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 }
