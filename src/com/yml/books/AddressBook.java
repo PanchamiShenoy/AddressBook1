@@ -18,6 +18,7 @@ import java.util.stream.Stream;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.CSVWriter;
+import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -408,6 +409,44 @@ public class AddressBook {
 			writer.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * write contact in addressBook to json file
+	 */
+	public void writeContactJson(String file) {
+		Gson gson = new Gson();
+		try {
+			FileWriter writer = new FileWriter(file);
+			for (Contact c : addressBook.values()) {
+				String json = gson.toJson(c);
+
+				writer.write(json);
+				writer.write("\n");
+
+			}
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Reads the contacts from json file
+	 */
+	public void addContactJson(String file) {
+		Gson gson = new Gson();
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			Contact contactObj = gson.fromJson(br, Contact.class);
+			Contact c = addressBook.get(contactObj.firstName + contactObj.lastName);
+			if (c == null) {
+				addressBook.put(contactObj.firstName + contactObj.lastName, contactObj);
+			}
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
